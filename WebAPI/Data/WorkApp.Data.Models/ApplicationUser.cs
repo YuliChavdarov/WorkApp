@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -13,6 +14,14 @@
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
+
+        [MaxLength(50)]
+        [Required]
+        public string FirstName { get; set; }
+
+        [MaxLength(50)]
+        [Required]
+        public string LastName { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

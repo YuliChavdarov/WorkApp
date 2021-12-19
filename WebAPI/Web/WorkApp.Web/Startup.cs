@@ -11,6 +11,7 @@
     using WorkApp.Data.Models;
     using WorkApp.Data.Repositories;
     using WorkApp.Data.Seeding;
+    using WorkApp.Services;
     using WorkApp.Services.Messaging;
 
     public class Startup
@@ -39,6 +40,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IWorkerService, WorkerService>();
 
             services.AddCors();
         }
@@ -56,12 +58,13 @@
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                app.UseExceptionHandler("/api/error-development");
             }
             else
             {
                 app.UseHsts();
+                app.UseExceptionHandler("/api/error");
             }
 
             app.UseHttpsRedirection();

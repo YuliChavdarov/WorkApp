@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using WorkApp.Services;
+using WorkApp.Services.Data;
 
 namespace WorkApp.Web.Controllers
 {
@@ -6,17 +9,19 @@ namespace WorkApp.Web.Controllers
     [Route("/api/[controller]")]
     public class RegisterController : ControllerBase
     {
-        [HttpPost]
-        public ActionResult<TestResult> Post()
+        private readonly IWorkerService workerService;
+
+        public RegisterController(IWorkerService workerService)
         {
-            // TODO: implement register on POST
-            return new TestResult() { Result = "Ok", Payload = "Test data" };
+            this.workerService = workerService;
         }
 
-        public class TestResult
+        [HttpPost]
+        [Route("worker")]
+        public async Task<ActionResult> Post(RegisterWorkerInputModel workerModel)
         {
-            public string Result { get; set; }
-            public string Payload { get; set; }
+            await this.workerService.RegisterWorker(workerModel);
+            return this.Ok();
         }
     }
 }

@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\WorkApp.Data\WorkApp.Data.csproj" />
-    <ProjectReference Include="..\..\Services\WorkApp.Services.Data\WorkApp.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\WorkApp.Services\WorkApp.Services.csproj" />
   </ItemGroup>
 
 </Project>

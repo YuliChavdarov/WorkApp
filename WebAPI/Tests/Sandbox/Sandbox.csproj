@@ -23,11 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\WorkApp.Data.Models\WorkApp.Data.Models.csproj" />
-    <ProjectReference Include="..\..\Data\WorkApp.Data\WorkApp.Data.csproj" />
-    <ProjectReference Include="..\..\Services\WorkApp.Services.Data\WorkApp.Services.Data.csproj" />
-    <ProjectReference Include="..\..\Services\WorkApp.Services.Mapping\WorkApp.Services.Mapping.csproj" />
-    <ProjectReference Include="..\..\Services\WorkApp.Services.Messaging\WorkApp.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\WorkApp.Services\WorkApp.Services.csproj" />
   </ItemGroup>
 

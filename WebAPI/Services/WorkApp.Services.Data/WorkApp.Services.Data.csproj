@@ -5,9 +5,4 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Data\WorkApp.Data.Models\WorkApp.Data.Models.csproj" />
-    <ProjectReference Include="..\WorkApp.Services.Mapping\WorkApp.Services.Mapping.csproj" />
-  </ItemGroup>
-
 </Project>

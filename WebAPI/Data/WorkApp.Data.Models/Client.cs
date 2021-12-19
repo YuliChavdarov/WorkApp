@@ -12,6 +12,7 @@ namespace WorkApp.Data.Models
             this.JobOffers = new HashSet<Job>();
         }
 
+        [Required]
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
