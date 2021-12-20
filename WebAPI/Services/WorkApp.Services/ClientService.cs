@@ -10,7 +10,7 @@ using WorkApp.Services.Data;
 
 namespace WorkApp.Services
 {
-    public class WorkerService : IWorkerService
+    public class ClientService : IClientService
     {
 
     }

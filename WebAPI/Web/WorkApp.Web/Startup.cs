@@ -41,6 +41,8 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IWorkerService, WorkerService>();
+            services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IRegisterService, RegisterService>();
 
             services.AddCors();
         }

@@ -9,6 +9,5 @@ namespace WorkApp.Services
 {
     public interface IWorkerService
     {
-        public Task RegisterWorker(RegisterWorkerInputModel inputModel);
     }
 }
