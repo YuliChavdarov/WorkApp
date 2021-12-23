@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -7,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using WorkApp.Services.Login;
+using static WorkApp.Services.Common.ServiceConstants;
 
 namespace WorkApp.Web.Controllers
 {
@@ -37,6 +39,20 @@ namespace WorkApp.Web.Controllers
             }
 
             return this.BadRequest(result.Errors);
+        }
+
+        [HttpGet("workers")]
+        [Authorize(Policy = PolicyNames.WorkersOnly)]
+        public async Task<ActionResult> SuperSecretActionForWorkersOnly()
+        {
+            return this.Ok("only workers should see this");
+        }
+
+        [HttpGet("clients")]
+        [Authorize(Policy = PolicyNames.ClientsOnly)]
+        public async Task<ActionResult> SuperSecretActionForClientsOnly()
+        {
+            return this.Ok("only clients should see this");
         }
     }
 }

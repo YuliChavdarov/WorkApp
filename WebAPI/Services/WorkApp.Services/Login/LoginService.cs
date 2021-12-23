@@ -8,7 +8,7 @@ using WorkApp.Data.Models;
 using WorkApp.Data.Repositories;
 using WorkApp.Services.Common;
 using WorkApp.Services.Jwt;
-using static WorkApp.Data.Models.Common.ModelConstants.ClaimNames;
+using static WorkApp.Services.Common.ServiceConstants.ClaimNames;
 
 namespace WorkApp.Services.Login
 {

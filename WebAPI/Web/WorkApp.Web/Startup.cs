@@ -19,6 +19,7 @@
     using WorkApp.Services.Login;
     using WorkApp.Services.Messaging;
     using WorkApp.Services.Register;
+    using static WorkApp.Services.Common.ServiceConstants;
 
     public class Startup
     {
@@ -63,6 +64,12 @@
                     ValidateIssuer = false,
                     ValidateAudience = false,
                 };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(PolicyNames.WorkersOnly, policy => policy.RequireClaim(ClaimNames.UserType, ClaimValues.WorkerUserType));
+                options.AddPolicy(PolicyNames.ClientsOnly, policy => policy.RequireClaim(ClaimNames.UserType, ClaimValues.ClientUserType));
             });
 
             // Data repositories

@@ -11,22 +11,6 @@ namespace WorkApp.Data.Models.Common
     /// </summary>
     public static class ModelConstants
     {
-        public static class ClaimNames
-        {
-            public const string Address = "Address";
-            public const string Description = "Description";
-            public const string HourlyPayment = "HourlyPayment";
-            public const string CompanyName = "CompanyName";
-            
-            public const string UserType = "UserType";
-        }
-
-        public static class ClaimValues
-        {
-            public const string ClientUserType = "Client";
-            public const string WorkerUserType = "Worker";
-        }
-
         public static class ApplicationUser
         {
             public const int FirstNameMaxLength = 50;

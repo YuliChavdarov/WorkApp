@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using WorkApp.Data.Models;
 using WorkApp.Services.Common;
 using WorkApp.Services.Register.InputModels;
-using static WorkApp.Data.Models.Common.ModelConstants.ClaimNames;
-using static WorkApp.Data.Models.Common.ModelConstants.ClaimValues;
+using static WorkApp.Services.Common.ServiceConstants.ClaimNames;
+using static WorkApp.Services.Common.ServiceConstants.ClaimValues;
 
 namespace WorkApp.Services.Register
 {
