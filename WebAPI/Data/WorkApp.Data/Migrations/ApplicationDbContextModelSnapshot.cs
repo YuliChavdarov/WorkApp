@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkApp.Data;
 
+#nullable disable
+
 namespace WorkApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
@@ -15,16 +17,18 @@ namespace WorkApp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -40,15 +44,16 @@ namespace WorkApp.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -64,7 +69,7 @@ namespace WorkApp.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -86,7 +91,7 @@ namespace WorkApp.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -101,7 +106,7 @@ namespace WorkApp.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -120,7 +125,7 @@ namespace WorkApp.Data.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("WorkApp.Data.Models.ApplicationRole", b =>
@@ -161,7 +166,7 @@ namespace WorkApp.Data.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("WorkApp.Data.Models.ApplicationUser", b =>
@@ -250,40 +255,7 @@ namespace WorkApp.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("WorkApp.Data.Models.Client", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Clients");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("WorkApp.Data.Models.Job", b =>
@@ -302,7 +274,8 @@ namespace WorkApp.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<decimal>("HourlyPayment")
                         .HasColumnType("decimal(18,2)");
@@ -315,7 +288,8 @@ namespace WorkApp.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("WorkerId")
                         .HasColumnType("nvarchar(450)");
@@ -329,46 +303,6 @@ namespace WorkApp.Data.Migrations
                     b.HasIndex("WorkerId");
 
                     b.ToTable("Jobs");
-                });
-
-            modelBuilder.Entity("WorkApp.Data.Models.Worker", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("HourlyPayment")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Workers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -422,24 +356,13 @@ namespace WorkApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WorkApp.Data.Models.Client", b =>
-                {
-                    b.HasOne("WorkApp.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("WorkApp.Data.Models.Job", b =>
                 {
-                    b.HasOne("WorkApp.Data.Models.Client", "Client")
+                    b.HasOne("WorkApp.Data.Models.ApplicationUser", "Client")
                         .WithMany("JobOffers")
                         .HasForeignKey("ClientId");
 
-                    b.HasOne("WorkApp.Data.Models.Worker", "Worker")
+                    b.HasOne("WorkApp.Data.Models.ApplicationUser", "Worker")
                         .WithMany("JobsTaken")
                         .HasForeignKey("WorkerId");
 
@@ -448,34 +371,17 @@ namespace WorkApp.Data.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("WorkApp.Data.Models.Worker", b =>
-                {
-                    b.HasOne("WorkApp.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("WorkApp.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Claims");
 
+                    b.Navigation("JobOffers");
+
+                    b.Navigation("JobsTaken");
+
                     b.Navigation("Logins");
 
                     b.Navigation("Roles");
-                });
-
-            modelBuilder.Entity("WorkApp.Data.Models.Client", b =>
-                {
-                    b.Navigation("JobOffers");
-                });
-
-            modelBuilder.Entity("WorkApp.Data.Models.Worker", b =>
-                {
-                    b.Navigation("JobsTaken");
                 });
 #pragma warning restore 612, 618
         }

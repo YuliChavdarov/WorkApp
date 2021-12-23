@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WorkApp.Services
+namespace WorkApp.Services.Common
 {
-    public interface IWorkerService
+    public class JwtSettings
     {
+        public string Secret { get; set; }
     }
 }

@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\WorkApp.Data\WorkApp.Data.csproj" />
-    <ProjectReference Include="..\WorkApp.Services.Data\WorkApp.Services.Data.csproj" />
     <ProjectReference Include="..\WorkApp.Services.Mapping\WorkApp.Services.Mapping.csproj" />
     <ProjectReference Include="..\WorkApp.Services.Messaging\WorkApp.Services.Messaging.csproj" />
   </ItemGroup>

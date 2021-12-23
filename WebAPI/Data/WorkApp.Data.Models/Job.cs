@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using WorkApp.Data.Models.Common;
+
+using static WorkApp.Data.Models.Common.ModelConstants.Job;
 
 namespace WorkApp.Data.Models
 {
@@ -12,19 +16,22 @@ namespace WorkApp.Data.Models
         }
 
         [Required]
+        [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]
-        [Range(0, 1000000000)]
+        [Column(TypeName = HourlyPaymentColumnTypeName)]
+        [Range(MinHourlyPayment, MaxHourlyPayment)]
         public decimal HourlyPayment { get; set; }
 
         public string ClientId { get; set; }
-        public virtual Client Client { get; set; }
+        public virtual ApplicationUser Client { get; set; }
 
         public string WorkerId { get; set; }
-        public virtual Worker Worker { get; set; }
+        public virtual ApplicationUser Worker { get; set; }
     }
 }

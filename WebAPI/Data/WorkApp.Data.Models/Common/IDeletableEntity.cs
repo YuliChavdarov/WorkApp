@@ -1,4 +1,4 @@
-﻿namespace WorkApp.Data.Models
+﻿namespace WorkApp.Data.Models.Common
 {
     using System;
 

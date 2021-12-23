@@ -4,6 +4,10 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using WorkApp.Data.Models.Common;
+
+    using static WorkApp.Data.Models.Common.ModelConstants.ApplicationUser;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -13,15 +17,23 @@
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.JobOffers = new HashSet<Job>();
+            this.JobsTaken = new HashSet<Job>();
         }
 
-        [MaxLength(50)]
+        [MaxLength(FirstNameMaxLength)]
         [Required]
         public string FirstName { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(LastNameMaxLength)]
         [Required]
         public string LastName { get; set; }
+
+        [InverseProperty("Client")]
+        public virtual ICollection<Job> JobOffers { get; set; }
+
+        [InverseProperty("Worker")]
+        public virtual ICollection<Job> JobsTaken { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

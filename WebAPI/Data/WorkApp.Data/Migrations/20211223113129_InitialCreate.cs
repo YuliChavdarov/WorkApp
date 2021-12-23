@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace WorkApp.Data.Migrations
 {
     public partial class InitialCreate : Migration
@@ -163,60 +165,12 @@ namespace WorkApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clients",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clients_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Workers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HourlyPayment = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Workers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Workers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Jobs",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
                     HourlyPayment = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ClientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     WorkerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -229,17 +183,15 @@ namespace WorkApp.Data.Migrations
                 {
                     table.PrimaryKey("PK_Jobs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Jobs_Clients_ClientId",
+                        name: "FK_Jobs_AspNetUsers_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Jobs_Workers_WorkerId",
+                        name: "FK_Jobs_AspNetUsers_WorkerId",
                         column: x => x.WorkerId,
-                        principalTable: "Workers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -292,16 +244,6 @@ namespace WorkApp.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_IsDeleted",
-                table: "Clients",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Clients_UserId",
-                table: "Clients",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Jobs_ClientId",
                 table: "Jobs",
                 column: "ClientId");
@@ -315,16 +257,6 @@ namespace WorkApp.Data.Migrations
                 name: "IX_Jobs_WorkerId",
                 table: "Jobs",
                 column: "WorkerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Workers_IsDeleted",
-                table: "Workers",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Workers_UserId",
-                table: "Workers",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -349,12 +281,6 @@ namespace WorkApp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Clients");
-
-            migrationBuilder.DropTable(
-                name: "Workers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

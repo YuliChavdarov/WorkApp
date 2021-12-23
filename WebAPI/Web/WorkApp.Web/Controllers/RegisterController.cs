@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WorkApp.Services;
-using WorkApp.Services.Data;
+using WorkApp.Services.Register;
+using WorkApp.Services.Register.InputModels;
 
 namespace WorkApp.Web.Controllers
 {
@@ -16,20 +16,30 @@ namespace WorkApp.Web.Controllers
             this.registerService = registerService;
         }
 
-        [HttpPost]
-        [Route("worker")]
+        [HttpPost("worker")]
         public async Task<ActionResult> RegisterWorker(RegisterWorkerInputModel workerModel)
         {
-            await this.registerService.RegisterWorker(workerModel);
-            return this.Ok();
+            var result = await this.registerService.RegisterWorkerAsync(workerModel);
+
+            if (result.Succeeded)
+            {
+                return this.Ok();
+            }
+
+            return this.BadRequest(result.Errors);
         }
 
-        [HttpPost]
-        [Route("client")]
+        [HttpPost("client")]
         public async Task<ActionResult> RegisterClient(RegisterClientInputModel clientModel)
         {
-            await this.registerService.RegisterClient(clientModel);
-            return this.Ok();
+            var result = await this.registerService.RegisterClientAsync(clientModel);
+
+            if(result.Succeeded)
+            {
+                return this.Ok();
+            }
+
+            return this.BadRequest(result.Errors);
         }
     }
 }

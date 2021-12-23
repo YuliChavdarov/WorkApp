@@ -1,8 +1,7 @@
 ﻿namespace WorkApp.Data.Repositories
 {
     using System.Linq;
-
-    using WorkApp.Data.Models;
+    using WorkApp.Data.Models.Common;
 
     public interface IDeletableEntityRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IDeletableEntity

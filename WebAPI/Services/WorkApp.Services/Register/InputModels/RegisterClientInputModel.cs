@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using static WorkApp.Data.Models.Common.ModelConstants.ApplicationUser;
+using static WorkApp.Data.Models.Common.ModelConstants.Client;
 
-namespace WorkApp.Services.Data
+namespace WorkApp.Services.Register.InputModels
 {
-    public class RegisterWorkerInputModel
+    public class RegisterClientInputModel
     {
-        [MaxLength(50)]
+        [MaxLength(FirstNameMaxLength)]
         [Required]
         public string FirstName { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(LastNameMaxLength)]
         [Required]
         public string LastName { get; set; }
 
@@ -23,13 +25,7 @@ namespace WorkApp.Services.Data
         [Required]
         public string Password { get; set; }
 
-        [Required]
-        public string Description { get; set; }
-
-        public string Address { get; set; }
-
-        [Required]
-        [Range(0, 1000000000)]
-        public decimal? HourlyPayment { get; set; }
+        [MaxLength(CompanyNameMaxLength)]
+        public string CompanyName { get; set; }
     }
 }

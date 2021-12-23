@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Identity;
     using System;
+    using WorkApp.Data.Models.Common;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

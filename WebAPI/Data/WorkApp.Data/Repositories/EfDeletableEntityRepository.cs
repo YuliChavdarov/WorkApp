@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Linq;
-    using WorkApp.Data.Models;
+    using WorkApp.Data.Models.Common;
 
     public class EfDeletableEntityRepository<TEntity> : EfRepository<TEntity>, IDeletableEntityRepository<TEntity>
         where TEntity : class, IDeletableEntity

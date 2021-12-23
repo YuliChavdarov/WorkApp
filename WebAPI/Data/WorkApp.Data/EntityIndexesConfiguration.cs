@@ -2,7 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
-    using WorkApp.Data.Models;
+    using WorkApp.Data.Models.Common;
 
     internal static class EntityIndexesConfiguration
     {

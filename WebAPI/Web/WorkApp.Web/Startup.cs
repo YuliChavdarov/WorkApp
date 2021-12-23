@@ -1,18 +1,24 @@
 ﻿namespace WorkApp.Web
 {
-
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
+    using System.Text;
     using WorkApp.Data;
     using WorkApp.Data.Models;
     using WorkApp.Data.Repositories;
     using WorkApp.Data.Seeding;
     using WorkApp.Services;
+    using WorkApp.Services.Common;
+    using WorkApp.Services.Jwt;
+    using WorkApp.Services.Login;
     using WorkApp.Services.Messaging;
+    using WorkApp.Services.Register;
 
     public class Startup
     {
@@ -34,6 +40,31 @@
 
             services.AddSingleton(this.configuration);
 
+            //JWT
+            var jwtSettingsSection = configuration.GetSection("JwtSettings");
+            services.Configure<JwtSettings>(jwtSettingsSection);
+
+            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
+            var key = Encoding.ASCII.GetBytes(jwtSettings.Secret);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                };
+            });
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -43,6 +74,8 @@
             services.AddTransient<IWorkerService, WorkerService>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IRegisterService, RegisterService>();
+            services.AddTransient<ILoginService, LoginService>();
+            services.AddTransient<IJwtService, JwtService>();
 
             services.AddCors();
         }

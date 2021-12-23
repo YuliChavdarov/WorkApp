@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace WorkApp.Web.Controllers
 {
+    /// <summary>
+    /// Controller for handling uncaught exceptions.
+    /// </summary>
+
     [ApiController]
     public class ErrorController : ControllerBase
     {
@@ -27,6 +31,6 @@ namespace WorkApp.Web.Controllers
         }
 
         [Route("/api/error")]
-        public IActionResult HandleError() => Problem("A problem occured on the server.");
+        public IActionResult HandleError() => Problem("An unexpected error occured on the server.");
     }
 }
