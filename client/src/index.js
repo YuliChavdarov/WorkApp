@@ -11,14 +11,16 @@ import '@fontsource/roboto/700.css';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import createTheme from '@mui/material/styles/createTheme';
 
+import { BrowserRouter } from 'react-router-dom';
+
 const theme = createTheme();
 
 ReactDOM.render(
-    <React.StrictMode>
+    <BrowserRouter>
         <ThemeProvider theme={theme}>
             <App />
         </ThemeProvider>
-    </React.StrictMode>,
+    </BrowserRouter>,
     document.getElementById('root')
 );
 
