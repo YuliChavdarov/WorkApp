@@ -12,9 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import registerImage from '../images/register-image.jpg';
+import loginImage from '../images/login-image.jpg';
 
-export default function Register() {
+export default function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -40,9 +40,9 @@ export default function Register() {
 
                 <Grid item md={5} display={{ xs: "none", md: 'block' }} sx={{ alignSelf: "center" }}>
                     <img
-                        src={registerImage}
+                        src={loginImage}
                         style={{ display: 'block', marginLeft: "auto", marginRight: "auto" }}
-                        alt="register-img"
+                        alt="login-img"
                     />
                 </Grid>
 
@@ -60,36 +60,9 @@ export default function Register() {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Register to WorkApp
+                            Log in to WorkApp
                         </Typography>
-                        <Box component="form" onSubmit={handleSubmit} width={{ xs: "100%", md: "80%" }} noValidate sx={{ mt: 1 }}>
-
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="firstName"
-                                        label="First Name"
-                                        name="firstName"
-                                        autoComplete="firstName"
-                                        autoFocus
-                                    />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <TextField
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="lastName"
-                                        label="Last Name"
-                                        name="lastName"
-                                        autoComplete="lastName"
-                                    />
-                                </Grid>
-                            </Grid>
-
+                        <Box component="form" onSubmit={handleSubmit} width={{xs:"100%", md:"80%"}} noValidate sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
@@ -98,6 +71,7 @@ export default function Register() {
                                 label="Email Address"
                                 name="email"
                                 autoComplete="email"
+                                autoFocus
                             />
                             <TextField
                                 margin="normal"
@@ -109,14 +83,30 @@ export default function Register() {
                                 id="password"
                                 autoComplete="current-password"
                             />
+                            <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            />
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Register
+                                Log In
                             </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link href="#" variant="body2">
+                                        Forgot password?
+                                    </Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link href="#" variant="body2">
+                                        Don't have an account? Sign Up
+                                    </Link>
+                                </Grid>
+                            </Grid>
                             <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 4, mb: 4 }}>
                                 Copyright © WorkApp {new Date().getFullYear()}
                             </Typography>
