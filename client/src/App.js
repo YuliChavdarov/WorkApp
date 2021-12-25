@@ -1,16 +1,17 @@
-import './App.css';
+import Register from "./components/Register";
 
 function App() {
 
-    fetch('https://localhost:44319/api/register', {method: "POST"}).then(res => res.json()).then(data => console.log(data));
+    let token = 123;
+
+    fetch('https://localhost:44319/api/login', {method: "POST", headers: {"Content-type" : "application/json"}, body: `{"email": "client1234@abv.bg", "password": "ToziOnzi1"}`})
+    .then(res => res.json()).then(data => {
+        fetch('https://localhost:44319/api/login/clients', {method: "GET", headers: {"Authorization": `Bearer ${data.token}`}}).then(res => console.log(res));
+    });
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
+        <Register />
     </div>
   );
 }
