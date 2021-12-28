@@ -10,17 +10,26 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import registerImage from '../images/register-image.jpg';
+import { register } from '../services/UsersService';
 
 export default function Register() {
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const firstName = data.get('firstName');
+        const lastName = data.get('lastName');
+        const email = data.get('email');
+        const password = data.get('password');
+
+        const userType = "worker";
+
+        const result = await register(userType, firstName, lastName, email, password);
+
+        if(result) {
+            console.log(result);
+        }
     };
 
     return (

@@ -14,16 +14,29 @@ import Container from '@mui/material/Container';
 
 import loginImage from '../images/login-image.jpg';
 
+import { Link as RouterLink } from 'react-router-dom';
+
+import { login } from '../services/UsersService';
+import AuthContext from '../contexts/AuthContext';
+
 export default function Login() {
 
-    const handleSubmit = (event) => {
+    const authContext = React.useContext(AuthContext);
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const email = data.get('email');
+        const password = data.get('password');
+
+        const result = await login(email, password);
+        if (result.token) {
+            authContext.login(result.token);
+        }
+        else {
+            console.log(result);
+        }
     };
 
     return (
@@ -62,7 +75,7 @@ export default function Login() {
                         <Typography component="h1" variant="h5">
                             Log in to WorkApp
                         </Typography>
-                        <Box component="form" onSubmit={handleSubmit} width={{xs:"100%", md:"80%"}} noValidate sx={{ mt: 1 }}>
+                        <Box component="form" onSubmit={handleSubmit} width={{ xs: "100%", md: "80%" }} noValidate sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
@@ -102,7 +115,7 @@ export default function Login() {
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
+                                    <Link component={RouterLink} to="/register" variant="body2">
                                         Don't have an account? Sign Up
                                     </Link>
                                 </Grid>
