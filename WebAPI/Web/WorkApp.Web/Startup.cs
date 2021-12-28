@@ -111,7 +111,11 @@
 
             app.UseHttpsRedirection();
 
-            app.UseCors(policy => policy.AllowAnyOrigin());
+            app.UseCors(policy =>
+            {
+                policy.AllowAnyOrigin();
+                policy.AllowAnyHeader();
+            });
 
             app.UseRouting();
 

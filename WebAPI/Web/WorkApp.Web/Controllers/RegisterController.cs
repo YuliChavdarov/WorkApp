@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using WorkApp.Services.Register;
 using WorkApp.Services.Register.InputModels;
+using WorkApp.Web.OutputModels;
 
 namespace WorkApp.Web.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Route(ApiRoutes.Register)]
     public class RegisterController : ControllerBase
     {
         private readonly IRegisterService registerService;
@@ -16,27 +17,14 @@ namespace WorkApp.Web.Controllers
             this.registerService = registerService;
         }
 
-        [HttpPost("worker")]
-        public async Task<ActionResult> RegisterWorker(RegisterWorkerInputModel workerModel)
+        [HttpPost]
+        public async Task<ActionResult<TokenOutputModel>> RegisterUser(RegisterUserInputModel inputModel)
         {
-            var result = await this.registerService.RegisterWorkerAsync(workerModel);
+            var result = await this.registerService.RegisterUserAsync(inputModel);
 
             if (result.Succeeded)
             {
-                return this.Ok();
-            }
-
-            return this.BadRequest(result.Errors);
-        }
-
-        [HttpPost("client")]
-        public async Task<ActionResult> RegisterClient(RegisterClientInputModel clientModel)
-        {
-            var result = await this.registerService.RegisterClientAsync(clientModel);
-
-            if(result.Succeeded)
-            {
-                return this.Ok();
+                return new TokenOutputModel { Token = result.Result };
             }
 
             return this.BadRequest(result.Errors);

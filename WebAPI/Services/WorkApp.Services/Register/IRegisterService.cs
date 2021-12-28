@@ -6,7 +6,6 @@ namespace WorkApp.Services.Register
 {
     public interface IRegisterService
     {
-        public Task<ServiceResultModel> RegisterWorkerAsync(RegisterWorkerInputModel inputModel);
-        public Task<ServiceResultModel> RegisterClientAsync(RegisterClientInputModel inputModel);
+        public Task<ServiceResultModel<string>> RegisterUserAsync(RegisterUserInputModel inputModel);
     }
 }

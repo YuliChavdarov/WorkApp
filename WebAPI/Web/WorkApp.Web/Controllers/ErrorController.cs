@@ -15,7 +15,7 @@ namespace WorkApp.Web.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
-        [Route("/api/error-development")]
+        [Route(ApiRoutes.ErrorDevelopment)]
         public IActionResult HandleErrorDevelopment([FromServices] IHostEnvironment hostEnvironment)
         {
             if (!hostEnvironment.IsDevelopment())
@@ -30,7 +30,7 @@ namespace WorkApp.Web.Controllers
                 title: exceptionHandlerFeature.Error.Message);
         }
 
-        [Route("/api/error")]
+        [Route(ApiRoutes.ErrorProduction)]
         public IActionResult HandleError() => Problem("An unexpected error occured on the server.");
     }
 }

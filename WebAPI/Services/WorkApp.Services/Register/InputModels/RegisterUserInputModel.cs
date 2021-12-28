@@ -8,8 +8,10 @@ using static WorkApp.Data.Models.Common.ModelConstants.Client;
 
 namespace WorkApp.Services.Register.InputModels
 {
-    public class RegisterClientInputModel
+    public class RegisterUserInputModel
     {
+        public string UserType { get; set; }
+
         [MaxLength(FirstNameMaxLength)]
         [Required]
         public string FirstName { get; set; }
@@ -24,8 +26,5 @@ namespace WorkApp.Services.Register.InputModels
 
         [Required]
         public string Password { get; set; }
-
-        [MaxLength(CompanyNameMaxLength)]
-        public string CompanyName { get; set; }
     }
 }

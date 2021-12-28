@@ -8,6 +8,7 @@ using WorkApp.Data.Models;
 using WorkApp.Data.Repositories;
 using WorkApp.Services.Common;
 using WorkApp.Services.Jwt;
+using static WorkApp.Services.Common.ServiceConstants;
 using static WorkApp.Services.Common.ServiceConstants.ClaimNames;
 
 namespace WorkApp.Services.Login
@@ -32,7 +33,7 @@ namespace WorkApp.Services.Login
                 return new ServiceResultModel<string>
                 {
                     Succeeded = false,
-                    Errors = new string[] { $"User with this email was not found." }
+                    Errors = new string[] { Errors.UserNotFound }
                 };
             }
 
@@ -43,7 +44,7 @@ namespace WorkApp.Services.Login
                 return new ServiceResultModel<string>
                 {
                     Succeeded = false,
-                    Errors = new string[] { "Incorrect password." }
+                    Errors = new string[] { Errors.IncorrectPassword }
                 };
             }
 

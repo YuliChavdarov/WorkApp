@@ -8,6 +8,13 @@ namespace WorkApp.Services.Common
 {
     public static class ServiceConstants
     {
+        public static class Errors
+        {
+            public static string UserNotFound = "User with this email was not found.";
+            public static string IncorrectPassword = "Incorrect password.";
+            public static string UnknownUserType = "Unknown user type.";
+        }
+
         public static class ClaimNames
         {
             public const string Address = "Address";
