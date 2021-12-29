@@ -18,6 +18,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { login } from '../services/UsersService';
 import AuthContext from '../contexts/AuthContext';
+import Copyright from './Copyright';
 
 export default function Login() {
 
@@ -120,9 +121,7 @@ export default function Login() {
                                     </Link>
                                 </Grid>
                             </Grid>
-                            <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 4, mb: 4 }}>
-                                Copyright © WorkApp {new Date().getFullYear()}
-                            </Typography>
+                            <Copyright sx={{ mt: 6, mb: 4 }} />
                         </Box>
                     </Box>
                 </Grid>

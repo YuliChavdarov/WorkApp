@@ -1,0 +1,63 @@
+.switch-button {
+    margin-top: 16px;
+    border-radius: 4px;
+    background: #fff;
+    border-color: #d2d2d2;
+    border-width: 2px;
+    border-style: solid;
+    overflow: hidden;
+    width: 240px;
+    text-align: center;
+    position: relative;
+    padding-right: 120px;
+  }
+  .switch-button:before {
+    content: "Client";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .switch-button-checkbox {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+  }
+  .switch-button-checkbox:checked + .switch-button-label:before {
+    transform: translateX(120px);
+    transition: transform 300ms linear;
+  }
+  .switch-button-checkbox + .switch-button-label {
+    position: relative;
+    padding: 15px 0;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+  }
+  .switch-button-checkbox + .switch-button-label:before {
+    content: "";
+    background: rgba(189, 216, 242, 1);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 4px;
+    transform: translateX(0);
+    transition: transform 300ms;
+  }
+  .switch-button-checkbox + .switch-button-label .switch-button-label-span {
+    position: relative;
+  }

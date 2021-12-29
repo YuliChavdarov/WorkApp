@@ -8,11 +8,27 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import registerImage from '../images/register-image.jpg';
 import { register } from '../services/UsersService';
 
+import '../styles/Register.css';
+
+import AuthContext from '../contexts/AuthContext';
+import Copyright from './Copyright';
+
 export default function Register() {
+
+    const [isClient, setIsClient] = React.useState(false);
+    const authContext = React.useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleUserTypeChange = (e) => {
+        setIsClient(!isClient);
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -23,11 +39,15 @@ export default function Register() {
         const email = data.get('email');
         const password = data.get('password');
 
-        const userType = "worker";
+        const userType = isClient ? "client" : "worker";
 
         const result = await register(userType, firstName, lastName, email, password);
 
-        if(result) {
+        if (result.token) {
+            authContext.login(result.token);
+            navigate("/create-profile");
+        }
+        else {
             console.log(result);
         }
     };
@@ -68,6 +88,12 @@ export default function Register() {
                         <Typography component="h1" variant="h5">
                             Register to WorkApp
                         </Typography>
+
+                        <Box className="switch-button">
+                            <input className="switch-button-checkbox" type="checkbox" id="userType" checked={isClient} onChange={handleUserTypeChange} />
+                            <label className="switch-button-label"><span className="switch-button-label-span">Worker</span></label>
+                        </Box>
+
                         <Box component="form" onSubmit={handleSubmit} width={{ xs: "100%", md: "80%" }} noValidate sx={{ mt: 1 }}>
 
                             <Grid container spacing={2}>
@@ -123,11 +149,15 @@ export default function Register() {
                             >
                                 Register
                             </Button>
-                            <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 4, mb: 4 }}>
-                                Copyright © WorkApp {new Date().getFullYear()}
-                            </Typography>
                         </Box>
                     </Box>
+
+                    <Box sx={{ textAlign: "center", mt: 1 }}>
+                        <Link component={RouterLink} to="/login" variant="body2">
+                            Already have an account? Log in
+                        </Link>
+                    </Box>
+                    <Copyright sx={{ mt: 4, mb: 4 }} />
                 </Grid>
             </Grid>
         </Container>
