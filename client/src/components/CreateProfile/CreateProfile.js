@@ -17,27 +17,29 @@ import LastDetails from './LastDetails';
 import Review from './Review';
 import Copyright from '../Copyright';
 
+import { CreateProfileProvider } from '../../contexts/CreateProfileContext';
+
 const steps = ['Welcome', 'About you', 'Hourly rate', 'Last details', 'Review your information'];
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <Welcome />;
-        case 1:
-            return <AboutYou />;
-        case 2:
-            return <HourlyRate />;
-        case 3:
-            return <LastDetails />;
-        case 4:
-            return <Review />;
-        default:
-            throw new Error('Unknown step');
-    }
-}
-
-export default function Checkout() {
+export default function CreateProfile() {
     const [activeStep, setActiveStep] = React.useState(0);
+
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <Welcome />;
+            case 1:
+                return <AboutYou />;
+            case 2:
+                return <HourlyRate />;
+            case 3:
+                return <LastDetails />;
+            case 4:
+                return <Review />;
+            default:
+                throw new Error('Unknown step');
+        }
+    }
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
@@ -48,7 +50,7 @@ export default function Checkout() {
     };
 
     return (
-        <>
+        <CreateProfileProvider>
             <CssBaseline />
             <AppBar
                 position="absolute"
@@ -90,6 +92,7 @@ export default function Checkout() {
                         ) : (
                             <>
                                 {getStepContent(activeStep)}
+
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                     {activeStep !== 0 && (
                                         <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
@@ -111,6 +114,6 @@ export default function Checkout() {
                 </Paper>
                 <Copyright />
             </Container>
-        </>
+        </CreateProfileProvider>
     );
 }

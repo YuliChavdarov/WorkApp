@@ -3,8 +3,16 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import CreateProfileContext from '../../contexts/CreateProfileContext';
 
 export default function HourlyRate() {
+
+    const { infoState, addToState } = React.useContext(CreateProfileContext);
+
+    const handleInfoInput = (e) => {
+        addToState(e.target.id, e.target.value);
+    }
+
     return (
         <Grid container spacing={3}>
             <Grid item xs={12} >
@@ -30,6 +38,8 @@ export default function HourlyRate() {
                         label="Hourly Rate"
                         fullWidth
                         variant="standard"
+                        defaultValue={infoState.hourlyRate}
+                        onChange={handleInfoInput}
                     />
                 </Grid>
                 <Grid item xs={12} sx={{ ml: 2 }}>
@@ -48,7 +58,7 @@ export default function HourlyRate() {
                         id="hourlyRate"
                         label="Service Fee"
                         disabled
-                        defaultValue="20% * HourlyRate"
+                        value = {0.2 * infoState.hourlyRate}
                         fullWidth
                         variant="standard"
                     />
@@ -68,7 +78,7 @@ export default function HourlyRate() {
                         id="hourlyRate"
                         label="You'll recieve"
                         disabled
-                        defaultValue="HourlyRate - 20%"
+                        value={0.8 * infoState.hourlyRate}
                         fullWidth
                         variant="standard"
                     />
