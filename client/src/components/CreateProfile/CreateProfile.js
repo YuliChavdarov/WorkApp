@@ -14,12 +14,13 @@ import Welcome from './Welcome';
 import AboutYou from './AboutYou';
 import HourlyRate from './HourlyRate';
 import LastDetails from './LastDetails';
-import Review from './Review';
 import Copyright from '../Copyright';
+
+import { Link as RouterLink } from 'react-router-dom';
 
 import { CreateProfileProvider } from '../../contexts/CreateProfileContext';
 
-const steps = ['Welcome', 'About you', 'Hourly rate', 'Last details', 'Review your information'];
+const steps = ['Welcome', 'About you', 'Hourly rate', 'Last details'];
 
 export default function CreateProfile() {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -34,8 +35,6 @@ export default function CreateProfile() {
                 return <HourlyRate />;
             case 3:
                 return <LastDetails />;
-            case 4:
-                return <Review />;
             default:
                 throw new Error('Unknown step');
         }
@@ -79,16 +78,16 @@ export default function CreateProfile() {
                     </Stepper>
                     <>
                         {activeStep === steps.length ? (
-                            <>
+                            <Box sx={{textAlign: "center"}}>
                                 <Typography variant="h5" gutterBottom>
-                                    Thank you for your order.
+                                    Thank you for joining us.
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    Your order number is #2001539. We have emailed your order
-                                    confirmation, and will send you an update when your order has
-                                    shipped.
+                                    Your profile is successfully created. You can now explore job offers
+                                    and find new opportunities.
                                 </Typography>
-                            </>
+                                <Button component={RouterLink} to="/" variant="contained" sx={{mt:3}}>Dashboard</Button>
+                            </Box>
                         ) : (
                             <>
                                 {getStepContent(activeStep)}
@@ -105,7 +104,7 @@ export default function CreateProfile() {
                                         onClick={handleNext}
                                         sx={{ mt: 3, ml: 1 }}
                                     >
-                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                        {activeStep === steps.length - 1 ? 'Create Profile' : 'Next'}
                                     </Button>
                                 </Box>
                             </>

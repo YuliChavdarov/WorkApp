@@ -60,7 +60,8 @@ export default function AboutYou() {
                     multiline
                     required
                     minRows={3}
-                    defaultValue={infoState.description || "Describe your top skills, experiences and interests."}
+                    defaultValue={infoState.description}
+                    placeholder="Describe your top skills, experiences and interests."
                     id="description"
                     label="Description"
                     fullWidth

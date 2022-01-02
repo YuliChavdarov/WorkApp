@@ -58,7 +58,7 @@ export default function HourlyRate() {
                         id="hourlyRate"
                         label="Service Fee"
                         disabled
-                        value = {0.2 * infoState.hourlyRate}
+                        value = {Math.round(0.2 * infoState.hourlyRate * 100) / 100}
                         fullWidth
                         variant="standard"
                     />
@@ -78,7 +78,7 @@ export default function HourlyRate() {
                         id="hourlyRate"
                         label="You'll recieve"
                         disabled
-                        value={0.8 * infoState.hourlyRate}
+                        value={Math.round(0.8 * infoState.hourlyRate * 100) / 100}
                         fullWidth
                         variant="standard"
                     />
