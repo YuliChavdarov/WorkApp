@@ -10,7 +10,9 @@ namespace WorkApp.Services.Common
     {
         public static class Errors
         {
-            public static string UserNotFound = "User with this email was not found.";
+            public static string UserEmailNotFound = "User with this email was not found.";
+            public static string ProfileAlreadyCreated = "Profile is already created.";
+            public static string UserIdNotFound = "User not found.";
             public static string IncorrectPassword = "Incorrect password.";
             public static string UnknownUserType = "Unknown user type.";
         }
@@ -19,8 +21,10 @@ namespace WorkApp.Services.Common
         {
             public const string Address = "Address";
             public const string Description = "Description";
-            public const string HourlyPayment = "HourlyPayment";
+            public const string Title = "Title";
+            public const string HourlyRate = "HourlyRate";
             public const string CompanyName = "CompanyName";
+            public const string City = "City";
 
             public const string UserType = "UserType";
         }

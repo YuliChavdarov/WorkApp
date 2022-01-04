@@ -33,7 +33,7 @@ namespace WorkApp.Services.Login
                 return new ServiceResultModel<string>
                 {
                     Succeeded = false,
-                    Errors = new string[] { Errors.UserNotFound }
+                    Errors = new string[] { Errors.UserEmailNotFound }
                 };
             }
 

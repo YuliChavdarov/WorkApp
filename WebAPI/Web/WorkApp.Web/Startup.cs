@@ -18,6 +18,7 @@
     using WorkApp.Services.Jwt;
     using WorkApp.Services.Login;
     using WorkApp.Services.Messaging;
+    using WorkApp.Services.Profile;
     using WorkApp.Services.Register;
     using static WorkApp.Services.Common.ServiceConstants;
 
@@ -83,6 +84,7 @@
             services.AddTransient<IRegisterService, RegisterService>();
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IJwtService, JwtService>();
+            services.AddTransient<IProfileService, ProfileService>();
 
             services.AddCors();
         }

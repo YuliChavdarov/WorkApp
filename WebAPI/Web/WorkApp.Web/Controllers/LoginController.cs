@@ -30,19 +30,5 @@ namespace WorkApp.Web.Controllers
 
             return this.BadRequest(result.Errors);
         }
-
-        [HttpGet("workers")]
-        [Authorize(Policy = PolicyNames.WorkersOnly)]
-        public async Task<ActionResult> SuperSecretActionForWorkersOnly()
-        {
-            return this.Ok("only workers should see this");
-        }
-
-        [HttpGet("clients")]
-        [Authorize(Policy = PolicyNames.ClientsOnly)]
-        public async Task<ActionResult> SuperSecretActionForClientsOnly()
-        {
-            return this.Ok("only clients should see this");
-        }
     }
 }

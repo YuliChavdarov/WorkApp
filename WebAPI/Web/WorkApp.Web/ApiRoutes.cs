@@ -6,6 +6,7 @@
 
         public const string Register = Root + "register";
         public const string Login = Root + "login";
+        public const string Profile = Root + "profile";
         public const string ErrorDevelopment = Root + "error-development";
         public const string ErrorProduction = Root + "error";
 

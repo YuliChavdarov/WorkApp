@@ -29,6 +29,10 @@
         [Required]
         public string LastName { get; set; }
 
+        public string Address { get; set; }
+
+        public bool ProfileCreated { get; set; }
+
         [InverseProperty("Client")]
         public virtual ICollection<Job> JobOffers { get; set; }
 
