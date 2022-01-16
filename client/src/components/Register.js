@@ -13,7 +13,7 @@ import Link from '@mui/material/Link';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import registerImage from '../images/register-image.jpg';
-import { register } from '../services/UsersService';
+import { register } from '../services/UserService';
 
 import '../styles/Register.css';
 

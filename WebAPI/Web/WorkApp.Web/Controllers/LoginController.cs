@@ -28,7 +28,7 @@ namespace WorkApp.Web.Controllers
                 return new TokenOutputModel { Token = result.Result };
             }
 
-            return this.BadRequest(result.Errors);
+            return this.BadRequest(new ErrorOutputModel(result.Errors));
         }
     }
 }

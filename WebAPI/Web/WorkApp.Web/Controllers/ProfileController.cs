@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WorkApp.Services.Profile;
 using WorkApp.Services.Register.InputModels;
 using WorkApp.Web.Extensions;
+using WorkApp.Web.OutputModels;
 using static WorkApp.Services.Common.ServiceConstants;
 
 namespace WorkApp.Web.Controllers
@@ -22,9 +23,8 @@ namespace WorkApp.Web.Controllers
             this.profileService = profileService;
         }
 
-        [HttpPost]
-        [Authorize(Policy = PolicyNames.WorkersOnly)]
-        public async Task<ActionResult> CreateWorkerProfile(WorkerProfileInputModel inputModel)
+        [HttpPost("create")]
+        public async Task<ActionResult> CreateProfile(WorkerProfileInputModel inputModel)
         {
             var id = this.User.GetId();
             
@@ -35,7 +35,7 @@ namespace WorkApp.Web.Controllers
                 return Ok();
             }
 
-            return this.BadRequest(result.Errors);
+            return this.BadRequest(new ErrorOutputModel(result.Errors));
         }
     }
 }

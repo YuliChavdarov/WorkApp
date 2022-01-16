@@ -16,7 +16,7 @@ import loginImage from '../images/login-image.jpg';
 
 import { Link as RouterLink } from 'react-router-dom';
 
-import { login } from '../services/UsersService';
+import { login } from '../services/UserService';
 import AuthContext from '../contexts/AuthContext';
 import Copyright from './Copyright';
 

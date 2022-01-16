@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import PageNotFound from './components/PageNotFound';
 
 import CreateProfile from './components/CreateProfile/CreateProfile';
+import { CreateProfileProvider } from './contexts/CreateProfileContext';
 
 function App() {
     return (
@@ -15,7 +16,11 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
 
-                    <Route path="/create-profile" element={<CreateProfile />} />
+                    <Route path="/create-profile" element={
+                        <CreateProfileProvider>
+                            <CreateProfile />
+                        </CreateProfileProvider>
+                    } />
 
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>

@@ -17,13 +17,18 @@ import LastDetails from './LastDetails';
 import Copyright from '../Copyright';
 
 import { Link as RouterLink } from 'react-router-dom';
-
-import { CreateProfileProvider } from '../../contexts/CreateProfileContext';
+import CreateProfileContext from '../../contexts/CreateProfileContext';
+import { createProfile } from '../../services/ProfileService';
+import AuthContext from '../../contexts/AuthContext';
 
 const steps = ['Welcome', 'About you', 'Hourly rate', 'Last details'];
 
 export default function CreateProfile() {
+
     const [activeStep, setActiveStep] = React.useState(0);
+    const authContext = React.useContext(AuthContext);
+    const { infoState, addToState } = React.useContext(CreateProfileContext);
+    
 
     function getStepContent(step) {
         switch (step) {
@@ -48,8 +53,20 @@ export default function CreateProfile() {
         setActiveStep(activeStep - 1);
     };
 
+    const handleCreateProfile = async () => {
+
+        const response = await createProfile(authContext.getToken(), infoState);
+
+        if (!response.errors) {
+            handleNext();
+        }
+        else {
+            console.log(response.errors);
+        }
+    }
+
     return (
-        <CreateProfileProvider>
+        <>
             <CssBaseline />
             <AppBar
                 position="absolute"
@@ -78,7 +95,7 @@ export default function CreateProfile() {
                     </Stepper>
                     <>
                         {activeStep === steps.length ? (
-                            <Box sx={{textAlign: "center"}}>
+                            <Box sx={{ textAlign: "center" }}>
                                 <Typography variant="h5" gutterBottom>
                                     Thank you for joining us.
                                 </Typography>
@@ -86,7 +103,7 @@ export default function CreateProfile() {
                                     Your profile is successfully created. You can now explore job offers
                                     and find new opportunities.
                                 </Typography>
-                                <Button component={RouterLink} to="/" variant="contained" sx={{mt:3}}>Dashboard</Button>
+                                <Button component={RouterLink} to="/" variant="contained" sx={{ mt: 3 }}>Dashboard</Button>
                             </Box>
                         ) : (
                             <>
@@ -99,20 +116,22 @@ export default function CreateProfile() {
                                         </Button>
                                     )}
 
-                                    <Button
-                                        variant="contained"
-                                        onClick={handleNext}
-                                        sx={{ mt: 3, ml: 1 }}
-                                    >
-                                        {activeStep === steps.length - 1 ? 'Create Profile' : 'Next'}
-                                    </Button>
-                                </Box>
+                                    {activeStep === steps.length - 1
+                                        ? <Button variant="contained" onClick={handleCreateProfile} sx={{ mt: 3, ml: 1 }}>
+                                            Create Profile
+                                        </Button>
+
+                                        : <Button variant="contained" onClick={handleNext} sx={{ mt: 3, ml: 1 }}>
+                                            Next
+                                        </Button>
+                                    }
+                            </Box>
                             </>
                         )}
-                    </>
-                </Paper>
-                <Copyright />
-            </Container>
-        </CreateProfileProvider>
+                </>
+            </Paper>
+            <Copyright />
+        </Container>
+        </>
     );
 }

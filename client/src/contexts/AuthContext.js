@@ -9,7 +9,11 @@ const initialState = { jwtToken: null };
 
 export const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useLocalStorage('authState', initialState);
-    
+
+    const getToken = () => {
+        return authState.jwtToken;
+    }
+
     const login = (jwtToken) => {
         const obj = { ...authState, jwtToken };
         setAuthState(obj);
@@ -20,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={ {authState, login, logout } }>
+        <AuthContext.Provider value={ {getToken, login, logout } }>
             {children}
         </AuthContext.Provider>
     );
