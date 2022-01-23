@@ -8,7 +8,7 @@ export default function LastDetails() {
 
     const { infoState, addToState } = React.useContext(CreateProfileContext);
 
-    const handleInfoInput = (e) => {
+    const handleInfoInput = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
         addToState(e.target.id, e.target.value);
     }
 

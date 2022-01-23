@@ -3,7 +3,7 @@ const headers = {
 	"Accept" : 'application/json'
 };
 
-export const getHeaders = (token = null) => {
+export const getHeaders = (token?: string) => {
 	return token
 		? {
 				...headers,

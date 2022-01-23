@@ -26,29 +26,29 @@ export default function Register() {
     const authContext = React.useContext(AuthContext);
     const navigate = useNavigate();
 
-    const handleUserTypeChange = (e) => {
+    const handleUserTypeChange = () => {
         setIsClient(!isClient);
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const firstName = data.get('firstName');
-        const lastName = data.get('lastName');
-        const email = data.get('email');
-        const password = data.get('password');
+        const firstName = data.get('firstName')!.toString();
+        const lastName = data.get('lastName')!.toString();
+        const email = data.get('email')!.toString();
+        const password = data.get('password')!.toString();
 
-        const userType = isClient ? "client" : "worker";
+        const userType = isClient ? "Client" : "Worker";
 
-        const result = await register(userType, firstName, lastName, email, password);
+        const response = await register(userType, firstName, lastName, email, password);
 
-        if (result.token) {
-            authContext.login(result.token);
-            navigate("/create-profile");
+        if (response.errors) {
+            console.log(response.errors);
         }
-        else {
-            console.log(result);
+        else if (response.token) {
+            authContext.login(response.token);
+            navigate("/create-profile");
         }
     };
 

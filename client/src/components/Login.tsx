@@ -24,19 +24,21 @@ export default function Login() {
 
     const authContext = React.useContext(AuthContext);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const email = data.get('email');
-        const password = data.get('password');
+        const email = data.get('email')!.toString();
+        const password = data.get('password')!.toString();
 
-        const result = await login(email, password);
-        if (result.token) {
-            authContext.login(result.token);
+        const response = await login(email, password);
+
+        if (response.errors) {
+            console.log(response.errors);
+
         }
-        else {
-            console.log(result);
+        else if (response.token) {
+            authContext.login(response.token);
         }
     };
 

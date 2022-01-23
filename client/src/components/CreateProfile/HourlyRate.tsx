@@ -9,7 +9,7 @@ export default function HourlyRate() {
 
     const { infoState, addToState } = React.useContext(CreateProfileContext);
 
-    const handleInfoInput = (e) => {
+    const handleInfoInput = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         addToState(e.target.id, e.target.value);
     }
 

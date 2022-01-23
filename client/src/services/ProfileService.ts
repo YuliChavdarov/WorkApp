@@ -1,6 +1,6 @@
 import { getHeaders } from "./Common";
 
-export const createProfile = (token, data) => {
+export const createProfile = (token: string, data: any) => {
     return fetch('https://localhost:44319/api/profile/create',
         {
             method: "POST",
@@ -8,5 +8,5 @@ export const createProfile = (token, data) => {
             body: JSON.stringify(data)
         })
         .then(res => res.json())
-        .catch(error => error);
+        .catch(error => console.log(error));
 }

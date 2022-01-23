@@ -30,7 +30,7 @@ export default function CreateProfile() {
     const { infoState, addToState } = React.useContext(CreateProfileContext);
     
 
-    function getStepContent(step) {
+    function getStepContent(step: number) {
         switch (step) {
             case 0:
                 return <Welcome />;
@@ -55,9 +55,16 @@ export default function CreateProfile() {
 
     const handleCreateProfile = async () => {
 
-        const response = await createProfile(authContext.getToken(), infoState);
+        const jwtToken = authContext.getJwtToken();
 
-        if (!response.errors) {
+        if(!jwtToken) {
+            console.log("Log in to your account");
+            return;
+        }
+
+        const response = await createProfile(jwtToken, infoState);
+
+        if (!response?.errors) {
             handleNext();
         }
         else {

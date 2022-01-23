@@ -3,14 +3,14 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export default function CountrySelect(params) {
+export default function CountrySelect(params: any) {
     return (
         <Autocomplete
             id="country"
             {...params}
             options={countries}
-            getOptionLabel={(option) => option.label}
-            renderOption={(props, option) => (
+            getOptionLabel={(option: CountryType) => option.label}
+            renderOption={(props, option: CountryType) => (
                 <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                     <img
                         loading="lazy"
@@ -32,7 +32,14 @@ export default function CountrySelect(params) {
     );
 }
 
-const countries = [
+interface CountryType {
+    code: string;
+    label: string;
+    phone: string;
+    suggested?: boolean;
+  }
+
+const countries: readonly CountryType[] = [
     { code: 'AD', label: 'Andorra', phone: '376' },
     {
         code: 'AE',
